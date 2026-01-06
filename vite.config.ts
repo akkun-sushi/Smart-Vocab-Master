@@ -5,12 +5,16 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
+      // 1. GitHub Pages用のパス設定を追加
+      base: '/Smart-Vocab-Master/', 
+
       server: {
         port: 3000,
         host: '0.0.0.0',
       },
       plugins: [react()],
       define: {
+        // 2. 環境変数（APIキー）の設定
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
       },
