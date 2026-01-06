@@ -1,0 +1,5 @@
+{
+  "name": "Smart Vocab Master",
+  "description": "A high-performance English vocabulary learning application that supports Excel file uploads, customizable quiz ranges, and AI-powered hints using Gemini.",
+  "requestFramePermissions": []
+}
