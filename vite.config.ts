@@ -3,25 +3,31 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, '.', '');
+    // 環境変数を読み込む
+    const env = loadEnv(mode, process.cwd(), '');
+    
     return {
-      // 1. GitHub Pages用のパス設定を追加
+      // 重要：GitHub Pages 用のベースパス設定
+      // 先頭と末尾にスラッシュが必要です
       base: '/Smart-Vocab-Master/', 
 
-      server: {
-        port: 3000,
-        host: '0.0.0.0',
-      },
       plugins: [react()],
+      
       define: {
-        // 2. 環境変数（APIキー）の設定
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+        // APIキーの設定。Viteではこの形式が安定します
+        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       },
+      
       resolve: {
         alias: {
-          '@': path.resolve(__dirname, '.'),
+          // '@' をプロジェクトルートに設定
+          '@': path.resolve(__dirname, './'),
         }
+      },
+
+      build: {
+        // ビルド後のファイル出力先を確認
+        outDir: 'dist',
       }
     };
 });
